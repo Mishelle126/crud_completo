@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+      <h1>Ventas de casas</h1>
+      
+      <form action="{% url 'create_casa' %}" method="POST">
+
+        {% csrf_token %}
+        <input type="number" name="cuarto" placeholder="Ingrese el numero de habitaciones">
+        <input type="number" name="metro" placeholder="Ingrese los metros de la casa">
+        <input type="number" name="baño" placeholder="Ingrese el numero de baños">
+        <input type="text" name="descripcion" placeholder="Ingrese una descipcion de la casa">
+        <button>Guardar</button>
+
+      </form>
+      {% for casa in casa %}
+      <div>
+          <h3>{{casa.cuarto}}</h3>
+          <h3>{{casa.metro}}</h3>
+          <h3>{{casa.baño}}</h3>
+          <h3>{{casa.descripcion}}</h3>
+      <form action="{% url 'delete_casa' casa.id %}" method="POST">
+        {% csrf_token %}
+        <button>Borrar</button>
+        
+      </form>
+      <a href="{% url 'editar_casa' casa.id %}"><button>Actualizar</button></a>
+
+      </div>
+      {% empty %}
+          <h4> no hay datos </h4>
+      {% endfor %}
+
+    </body>
+</html>
